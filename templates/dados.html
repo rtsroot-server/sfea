@@ -2,215 +2,219 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dados Cadastrais</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados Cadastrais - Suzane Figueiredo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; }
         
         body {
             margin: 0; padding: 20px; min-height: 100vh;
-            background-color: #0a0a0a;
-            background-image: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.95)), url('https://images.unsplash.com/photo-1601334653303-f111811a9eb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-position: center;
-            font-family: 'Playfair Display', serif; color: #D4B06A;
-            display: flex; flex-direction: column; align-items: center;
+            background-color: #080808;
+            font-family: Arial, sans-serif; color: #ddd;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
         .btn-voltar {
-            align-self: flex-start;
+            position: absolute; top: 20px; left: 20px;
             background: none; border: 1px solid #D4B06A; color: #D4B06A;
-            padding: 10px 20px; font-size: 18px; border-radius: 8px; cursor: pointer;
-            text-transform: uppercase; margin-bottom: 20px;
+            padding: 8px 20px; font-size: 14px; border-radius: 6px; cursor: pointer;
+            text-transform: uppercase; transition: all 0.2s;
+        }
+        .btn-voltar:active { background: #D4B06A; color: #000; }
+
+        .container {
+            width: 100%; max-width: 800px;
+            background: #000000; border: 1px solid #D4B06A; border-radius: 8px;
+            padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            margin-top: 40px;
         }
 
-        .container-form {
-            width: 100%; max-width: 900px;
-            background: rgba(15, 15, 15, 0.9); border: 1px solid #c4995a;
-            border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            margin-bottom: 30px;
+        h2 { font-family: 'Playfair Display', serif; color: #D4B06A; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-top: 0; margin-bottom: 30px; font-size: 22px;}
+
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: repeat(6, 1fr); 
+            gap: 20px; 
         }
 
-        h2 { text-align: center; text-transform: uppercase; letter-spacing: 2px; font-size: 24px; margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 15px;}
-        h3 { color: #fff; font-size: 18px; margin-top: 30px; border-bottom: 1px dashed #c4995a; padding-bottom: 5px; }
+        .col-2 { grid-column: span 2; }
+        .col-3 { grid-column: span 3; }
+        .col-6 { grid-column: span 6; }
 
-        .linha-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .grupo-input { display: flex; flex-direction: column; gap: 5px; }
-        .grupo-input.linha-inteira { grid-column: 1 / -1; }
-        
-        .grupo-input label { font-size: 16px; color: #c4995a; }
-        
+        .grupo-input { display: flex; flex-direction: column; gap: 8px; }
+        .grupo-input label { font-size: 12px; color: #D4B06A; text-transform: uppercase; letter-spacing: 0.5px;}
         .grupo-input input, .grupo-input select {
-            padding: 12px; font-size: 16px; border-radius: 8px;
-            border: 1px solid #66502f; background: #121212; color: white; outline: none;
-            font-family: Arial, sans-serif;
+            padding: 12px; font-size: 14px; border-radius: 4px;
+            border: 1px solid #333; background: #111; color: #aaa; outline: none;
+            width: 100%;
         }
-        
-        .grupo-input input:focus, .grupo-input select:focus {
-            border-color: #D4B06A; box-shadow: 0 0 8px rgba(212, 176, 106, 0.3);
+        .grupo-input input:focus, .grupo-input select:focus { border-color: #D4B06A; color: white; }
+
+        .linha-tracejada {
+            border-top: 1px dashed #D4B06A;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .titulo-emergencia {
+            font-size: 14px; color: #D4B06A; font-weight: bold; margin-bottom: 0;
         }
 
         .btn-salvar {
-            width: 100%; padding: 20px; font-size: 20px; border-radius: 10px; cursor: pointer;
+            width: 100%; padding: 18px; font-size: 16px; border-radius: 6px; cursor: pointer;
             font-family: 'Playfair Display', serif; font-weight: bold; text-transform: uppercase;
             background: linear-gradient(135deg, #e3c48e 0%, #c4995a 40%, #9e7135 100%);
-            border: none; color: #1a1a1a; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border: none; color: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             margin-top: 20px;
         }
         .btn-salvar:active { transform: scale(0.98); }
+
+        @media (max-width: 600px) {
+            .col-2, .col-3 { grid-column: span 6; }
+        }
     </style>
 </head>
 <body>
 
-    <button class="btn-voltar" onclick="window.location.href='/'"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+    <button class="btn-voltar" onclick="window.location.href='/'"><i class="fa-solid fa-arrow-left"></i> VOLTAR</button>
 
-    <div class="container-form">
+    <div class="container">
         <h2>Ficha de Dados Cadastrais</h2>
-        
-        <form id="formularioCadastro">
-            
-            <div class="linha-form">
-                <div class="grupo-input">
+
+        <form id="formCadastro" onsubmit="salvarCadastro(event)">
+            <div class="form-grid">
+                
+                <div class="grupo-input col-3">
                     <label>Data:</label>
-                    <input type="date" id="primeiroCampo">
+                    <input type="date" id="data_cadastro">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-3">
                     <label>Sexo:</label>
-                    <select>
-                        <option value="">Selecione...</option>
-                        <option value="Feminino">Feminino</option>
-                        <option value="Masculino">Masculino</option>
+                    <select id="sexo">
+                        <option>Selecione...</option>
+                        <option>Feminino</option>
+                        <option>Masculino</option>
                     </select>
                 </div>
-            </div>
 
-            <div class="linha-form">
-                <div class="grupo-input" style="grid-column: span 2;">
+                <div class="grupo-input col-3">
                     <label>Nome Completo:</label>
-                    <input type="text" id="nomeCompleto" placeholder="Digite seu nome completo">
+                    <input type="text" id="nome" required placeholder="Digite seu nome completo">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-3">
                     <label>RG / CPF:</label>
-                    <input type="text" placeholder="Documento de identidade">
+                    <input type="text" id="documento" required placeholder="Documento de identidade">
                 </div>
-            </div>
 
-            <div class="linha-form">
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Data de Nasc.:</label>
-                    <input type="date">
+                    <input type="date" id="data_nascimento">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Idade:</label>
-                    <input type="number" placeholder="Ex: 30">
+                    <input type="number" id="idade" required placeholder="Ex: 30">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Estado Civil:</label>
-                    <select>
-                        <option value="">Selecione...</option>
-                        <option value="Solteiro(a)">Solteiro(a)</option>
-                        <option value="Casado(a)">Casado(a)</option>
-                        <option value="Divorciado(a)">Divorciado(a)</option>
-                        <option value="Viúvo(a)">Viúvo(a)</option>
+                    <select id="estado_civil">
+                        <option>Selecione...</option>
+                        <option>Solteiro(a)</option>
+                        <option>Casado(a)</option>
                     </select>
                 </div>
-            </div>
 
-            <div class="linha-form">
-                <div class="grupo-input" style="grid-column: span 2;">
+                <div class="grupo-input col-3">
                     <label>E-mail:</label>
-                    <input type="email" id="emailCliente" placeholder="cliente@email.com">
+                    <input type="email" id="email" required placeholder="cliente@email.com">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-3">
                     <label>Telefone Fixo:</label>
-                    <input type="tel" placeholder="(  )">
+                    <input type="text" id="telefone_fixo" placeholder="( )">
                 </div>
-                <div class="grupo-input">
+
+                <div class="grupo-input col-3">
                     <label>Celular / WhatsApp:</label>
-                    <input type="tel" placeholder="(  ) 9XXXX-XXXX">
+                    <input type="text" id="celular" required placeholder="( ) 9XXXX-XXXX">
                 </div>
-            </div>
+                <div class="grupo-input col-3">
+                    <!-- Espaço vazio para manter a estrutura da imagem -->
+                </div>
 
-            <div class="linha-form">
-                <div class="grupo-input linha-inteira">
+                <div class="grupo-input col-6">
                     <label>Endereço Completo:</label>
-                    <input type="text" placeholder="Rua, Número, Complemento">
+                    <input type="text" id="endereco" placeholder="Rua, Número, Complemento">
                 </div>
-            </div>
 
-            <div class="linha-form">
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Bairro:</label>
-                    <input type="text">
+                    <input type="text" id="bairro">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Cidade:</label>
-                    <input type="text">
+                    <input type="text" id="cidade">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Estado:</label>
-                    <input type="text" placeholder="Ex: RJ">
+                    <input type="text" id="estado" placeholder="Ex: RJ">
                 </div>
-                <div class="grupo-input">
+
+                <div class="grupo-input col-2">
                     <label>CEP:</label>
-                    <input type="text" placeholder="00000-000">
+                    <input type="text" id="cep" placeholder="00000-000">
                 </div>
-            </div>
+                <div class="grupo-input col-4">
+                    <!-- Espaço vazio -->
+                </div>
 
-            <h3>Em caso de emergência avisar:</h3>
-            
-            <div class="linha-form">
-                <div class="grupo-input">
+                <div class="col-6">
+                    <div class="linha-tracejada"></div>
+                    <div class="titulo-emergencia">Em caso de emergência avisar:</div>
+                </div>
+
+                <div class="grupo-input col-2">
                     <label>Nome do Contato:</label>
-                    <input type="text" placeholder="Nome">
+                    <input type="text" id="contato_emergencia" placeholder="Nome">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Telefone:</label>
-                    <input type="tel" placeholder="(  )">
+                    <input type="text" id="telefone_emergencia" placeholder="( )">
                 </div>
-                <div class="grupo-input">
+                <div class="grupo-input col-2">
                     <label>Grau de Parentesco:</label>
-                    <input type="text" placeholder="Ex: Mãe, Cônjuge">
+                    <input type="text" id="parentesco" placeholder="Ex: Mãe, Cônjuge">
                 </div>
-            </div>
 
-            <button type="button" class="btn-salvar" onclick="salvarCadastro()"><i class="fa-solid fa-floppy-disk"></i> Salvar Cadastro</button>
+                <div class="col-6">
+                    <button type="submit" class="btn-salvar"><i class="fa-solid fa-check"></i> SALVAR CADASTRO</button>
+                </div>
+
+            </div>
         </form>
     </div>
 
     <script>
-        async function salvarCadastro() {
-            const nome = document.getElementById('nomeCompleto').value;
-            const email = document.getElementById('emailCliente').value;
+        async function salvarCadastro(event) {
+            event.preventDefault();
 
-            // Validação simples para não salvar campos vazios
-            if (!nome || !email) {
-                alert("Por favor, preencha pelo menos o Nome Completo e o E-mail!");
-                return;
-            }
+            // Captura o nome e a IDADE que você digitou no formulário
+            const dados = {
+                nome: document.getElementById('nome').value.trim(),
+                idade: document.getElementById('idade').value,
+                email: document.getElementById('email').value.trim()
+            };
 
-            // Envia os dados de forma invisível para o arquivo app.py guardar
             const resposta = await fetch('/dados', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nome: nome, email: email })
+                body: JSON.stringify(dados)
             });
 
-            const resultado = await resposta.json();
-
-            // Se o Python guardou com sucesso, executa o comportamento de limpar a tela
-            if (resultado.status === "sucesso") {
-                alert("Cadastro realizado e salvo com sucesso!");
-                document.getElementById('formularioCadastro').reset();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                document.getElementById('primeiroCampo').focus();
+            const res = await resposta.json();
+            if (res.status === "sucesso") {
+                alert('Ficha Cadastral salva com sucesso!');
+                window.location.href = '/';
             }
         }
     </script>

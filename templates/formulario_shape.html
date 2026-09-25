@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento Shape - Suzane Figueiredo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 20px; min-height: 100vh;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            font-family: 'Arial', sans-serif; color: #ddd;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: #D4B06A; text-transform: uppercase; }
+        h1 { text-align: center; font-size: 24px; letter-spacing: 2px; border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 30px;}
+
+        .btn-voltar {
+            background: none; border: 1px solid #D4B06A; color: #D4B06A;
+            padding: 10px 20px; font-size: 16px; border-radius: 8px; cursor: pointer;
+            text-transform: uppercase; margin-bottom: 20px; transition: 0.2s;
+        }
+        .btn-voltar:active { background: #D4B06A; color: #000; }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .secao { background: #0f0f0f; border: 1px solid #8c6b3e; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); }
+        
+        .cabecalho-identificacao { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .grupo-input { display: flex; flex-direction: column; gap: 5px; }
+        .grupo-input label { font-size: 14px; color: #D4B06A; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
+        .grupo-input input, .grupo-input select { padding: 12px; font-size: 16px; border-radius: 6px; border: 1px solid #444; background: #1a1a1a; color: white; outline: none; }
+        .grupo-input input:focus { border-color: #D4B06A; }
+
+        .fcm-info { background: #1a1a1a; border: 1px dashed #D4B06A; padding: 15px; border-radius: 8px; text-align: center; color: #fff; font-size: 16px; }
+        .fcm-info span { color: #D4B06A; font-weight: bold; font-size: 22px; display: block; margin-top: 5px;}
+
+        /* Tabela de Acompanhamento */
+        .tabela-responsiva { overflow-x: auto; margin-top: 20px; border-radius: 8px; border: 1px solid #333; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        th { background: #1a1a1a; color: #D4B06A; padding: 12px; font-size: 13px; text-transform: uppercase; border: 1px solid #333; text-align: center; font-family: 'Playfair Display', serif;}
+        td { border: 1px solid #333; padding: 0; background: #0f0f0f; }
+        
+        td input { 
+            width: 100%; height: 40px; border: none; background: transparent; 
+            color: #fff; text-align: center; font-size: 14px; outline: none; padding: 5px;
+        }
+        td input:focus { background: #1a1a1a; }
+        .col-sessao { background: #141414; color: #888; text-align: center; font-weight: bold; padding: 10px; width: 50px; }
+
+        /* Blocos 10 e 11 */
+        .titulo-bloco { font-size: 18px; color: #4b86b4; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 15px; font-family: 'Arial', sans-serif; font-weight: bold; text-transform: none;}
+        
+        .grid-checkbox { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .grid-checkbox label { display: flex; align-items: center; gap: 8px; cursor: pointer; color: #ddd; font-size: 14px;}
+        .grid-checkbox input[type="text"] { border: none; border-bottom: 1px solid #555; background: transparent; color: white; outline: none; width: 100%; padding: 5px;}
+        
+        textarea { width: 100%; min-height: 120px; padding: 15px; border-radius: 8px; border: 1px solid #444; background: #1a1a1a; color: white; resize: vertical; font-size: 15px; outline: none;}
+        textarea:focus { border-color: #D4B06A; }
+
+        .btn-salvar { 
+            display: block; width: 100%; padding: 20px; font-size: 18px; border-radius: 8px; cursor: pointer;
+            font-family: 'Playfair Display', serif; font-weight: bold; text-transform: uppercase;
+            background: linear-gradient(135deg, #e3c48e 0%, #c4995a 40%, #9e7135 100%); border: none; color: #1a1a1a;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: transform 0.2s; margin-top: 30px;
+        }
+        .btn-salvar:active { transform: scale(0.98); }
+
+        @media (max-width: 768px) {
+            .cabecalho-identificacao { grid-template-columns: 1fr; }
+            .grid-checkbox { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn-voltar" onclick="window.location.href='/protocolos'"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+
+        <h1>Quadro de Resultados – Acompanhamento Shape Space + SEM</h1>
+
+        <div class="secao">
+            <div class="cabecalho-identificacao">
+                <div class="grupo-input">
+                    <label>Paciente</label>
+                    <input type="text" id="nomePaciente" list="listaClientes" placeholder="Busque ou digite o nome..." oninput="calcularFCM()" onchange="calcularFCM()">
+                    <datalist id="listaClientes">
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.nome }}"></option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="fcm-info">
+                    Cálculo do FCM
+                    <span id="resultadoFCM">220 - Idade</span>
+                </div>
+            </div>
+
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Sessão</th>
+                            <th>Duração (min)</th>
+                            <th>Kcal Queimada</th>
+                            <th>Distância (km)</th>
+                            <th>Dist. Acumulada</th>
+                            <th>Kcal Acumulada</th>
+                            <th>BPM Médio</th>
+                            <th>Inclinação</th>
+                            <th>Profissional</th>
+                            <th>Visto (Paciente)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <script>
+                            for(let i=1; i<=15; i++) {
+                                document.write(`
+                                    <tr>
+                                        <td><input type="date"></td>
+                                        <td class="col-sessao">${i}ª</td>
+                                        <td><input type="text" placeholder="0"></td>
+                                        <td><input type="text" placeholder="0"></td>
+                                        <td><input type="text" placeholder="0"></td>
+                                        <td><input type="text" placeholder="0"></td>
+                                        <td><input type="text" placeholder="0"></td>
+                                        <td><input type="text" placeholder="0"></td>
+                                        <td><input type="text" placeholder="0"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text" placeholder="Assinatura"></td>
+                                    </tr>
+                                `);
+                            }
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bloco 10 -->
+        <div class="secao">
+            <div class="titulo-bloco" style="color: #6a9ac4;">10 – Outros protocolos associados</div>
+            <div class="grid-checkbox">
+                <label><input type="checkbox"> Criolipólise</label>
+                <label><input type="checkbox"> Lipolaser</label>
+                <label><input type="checkbox"> Enzimas</label>
+                <label><input type="checkbox"> Hidrolipo</label>
+                <label style="grid-column: span 2;">
+                    <input type="checkbox" style="margin-right: 8px;"> Outros (Descrever): 
+                    <input type="text" placeholder="...">
+                </label>
+            </div>
+        </div>
+
+        <!-- Bloco 11 -->
+        <div class="secao">
+            <div class="titulo-bloco" style="color: #6a9ac4;">11 – Relatório profissional</div>
+            <textarea placeholder="Insira as observações clínicas do acompanhamento..."></textarea>
+        </div>
+
+        <button class="btn-salvar" onclick="alert('Quadro de acompanhamento salvo com sucesso!'); window.location.href='/protocolos';">
+            <i class="fa-solid fa-check"></i> Salvar Acompanhamento
+        </button>
+
+    </div>
+
+    <script>
+        const bancoClientes = [
+            {% for cliente in clientes %}
+                { 
+                    nome: "{{ cliente.nome }}", 
+                    idade: parseInt("{{ cliente.idade }}") || 0 
+                },
+            {% endfor %}
+        ];
+
+        function calcularFCM() {
+            const input = document.getElementById('nomePaciente').value.trim().toLowerCase();
+            const campoResultado = document.getElementById('resultadoFCM');
+
+            if (!input) {
+                campoResultado.innerText = "220 - Idade";
+                return;
+            }
+
+            const clienteEncontrado = bancoClientes.find(c => c.nome.toLowerCase() === input);
+
+            if (clienteEncontrado && clienteEncontrado.idade > 0) {
+                const fcm = 220 - clienteEncontrado.idade;
+                campoResultado.innerText = `${fcm} BPM (${clienteEncontrado.idade} anos)`;
+            } else {
+                campoResultado.innerText = "220 - Idade";
+            }
+        }
+    </script>
+</body>
+</html>

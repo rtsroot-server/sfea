@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clínica Suzane Figueiredo</title>
+    <title>Protocolos - Suzane Figueiredo</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -27,10 +27,15 @@
             max-width: 800px;
         }
         
-        .logo { 
-            max-width: 350px; 
-            margin-bottom: 50px; 
+        .btn-voltar { 
+            position: absolute; top: 30px; left: 30px;
+            background: none; border: 1px solid #D4B06A; color: #D4B06A; 
+            padding: 10px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; 
+            text-transform: uppercase; font-family: Arial, sans-serif; transition: 0.2s;
         }
+        .btn-voltar:active { background: #D4B06A; color: #000; }
+
+        h1 { color: #D4B06A; text-transform: uppercase; letter-spacing: 3px; font-size: 28px; margin-bottom: 40px; }
         
         .menu-botoes { 
             display: grid; 
@@ -43,61 +48,46 @@
             border: 1px solid #f2daa6; 
             border-radius: 8px; 
             padding: 30px 20px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            cursor: pointer; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.6); 
-            transition: transform 0.2s, box-shadow 0.2s; 
-            text-decoration: none;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 15px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.6); 
+            transition: transform 0.2s; text-decoration: none;
         }
         
-        .btn-menu:active { 
-            transform: scale(0.97); 
-            box-shadow: 0 5px 10px rgba(0,0,0,0.6);
-        }
-        
+        .btn-menu:active { transform: scale(0.97); }
         .btn-menu i { font-size: 32px; color: #2b1d0f; }
         .btn-menu span { font-size: 18px; font-family: 'Playfair Display', serif; color: #2b1d0f; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-        .btn-destaque { grid-column: 1 / -1; }
-
         @media (max-width: 600px) {
             .menu-botoes { grid-template-columns: 1fr; }
-            .btn-destaque { grid-column: 1; }
+            .btn-voltar { position: static; margin-bottom: 30px; display: block; width: 100%; }
         }
     </style>
 </head>
 <body>
+    <button class="btn-voltar" onclick="window.location.href='/'"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+
     <div class="container">
-        <img src="/static/logo.png" alt="Suzane Figueiredo Estética Avançada" class="logo">
+        <h1>Protocolos Shape Space</h1>
         
         <div class="menu-botoes">
-            <a href="/dados" class="btn-menu">
-                <i class="fa-solid fa-user-pen"></i>
-                <span>Dados Cadastrais</span>
+            <a href="#" class="btn-menu">
+                <i class="fa-solid fa-spa"></i>
+                <span>Shape Space</span>
             </a>
             
-            <a href="/contrato" class="btn-menu">
-                <i class="fa-solid fa-file-signature"></i>
-                <span>Contrato de Serviços</span>
+            <a href="/formulario_shape" class="btn-menu">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Shape Com Eletro Full</span>
             </a>
             
-            <a href="/contrato" class="btn-menu">
-                <i class="fa-solid fa-camera"></i>
-                <span>Termo de Imagem</span>
+            <a href="/formulario_shape" class="btn-menu">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Shape Com Eletro Mid</span>
             </a>
             
-            <a href="/anamnese" class="btn-menu">
-                <i class="fa-solid fa-notes-medical"></i>
-                <span>Ficha Anamnese</span>
-            </a>
-
-            <a href="/protocolos" class="btn-menu btn-destaque">
-                <i class="fa-solid fa-clipboard-list"></i>
-                <span>Protocolo Shape Space</span>
+            <a href="/formulario_shape" class="btn-menu">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>Shape Com Lipedema</span>
             </a>
         </div>
     </div>
