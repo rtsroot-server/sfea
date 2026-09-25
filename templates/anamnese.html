@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação Estética Corporal - Suzane Figueiredo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 20px; background-color: #0a0a0a; background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #000000 100%); font-family: 'Arial', sans-serif; color: #ddd; }
+        h1, h2, h3, .titulo-luxo { font-family: 'Playfair Display', serif; color: #D4B06A; text-transform: uppercase; }
+        h1 { text-align: center; font-size: 28px; letter-spacing: 2px; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px;}
+        
+        .btn-voltar { background: none; border: 1px solid #D4B06A; color: #D4B06A; padding: 10px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; text-transform: uppercase; margin-bottom: 20px; }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        /* Cartões de Seção */
+        .secao { background: #0f0f0f; border: 1px solid #8c6b3e; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); }
+        .secao h2 { font-size: 20px; border-bottom: 1px dashed #444; padding-bottom: 10px; margin-top: 0; margin-bottom: 20px; }
+        
+        /* Grids para organizar campos lado a lado */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        
+        .grupo-input { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 14px; color: #aaa; font-weight: bold;}
+        input[type="text"], input[type="number"], select, textarea { width: 100%; padding: 10px; font-size: 14px; border-radius: 6px; border: 1px solid #444; background: #1a1a1a; color: white; }
+        textarea { resize: vertical; min-height: 80px; }
+        
+        .linha-opcoes { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;}
+        .linha-opcoes label { display: flex; align-items: center; gap: 5px; cursor: pointer; color: #ddd; font-weight: normal; margin: 0;}
+        
+        .texto-termo { background: #141414; padding: 15px; border-radius: 6px; border: 1px solid #333; font-size: 13px; line-height: 1.5; text-align: justify; color: #bbb; margin-bottom: 15px;}
+        
+        /* Assinaturas */
+        .area-assinatura { display: flex; flex-direction: column; align-items: center; margin-top: 15px; }
+        canvas { background: #ffffff; border-radius: 8px; border: 2px solid #c4995a; cursor: crosshair; max-width: 100%; }
+        .botoes-canvas { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-limpar { padding: 8px 15px; background: transparent; border: 1px solid #888; color: #aaa; border-radius: 4px; cursor: pointer; }
+        
+        /* Botão Final */
+        .btn-salvar-tudo { display: block; width: 100%; padding: 20px; font-size: 20px; font-family: 'Playfair Display', serif; font-weight: bold; text-transform: uppercase; background: linear-gradient(135deg, #e3c48e 0%, #c4995a 40%, #9e7135 100%); color: #1a1a1a; border: none; border-radius: 8px; cursor: pointer; margin-top: 30px; box-shadow: 0 5px 15px rgba(212, 176, 106, 0.3); transition: transform 0.2s;}
+        .btn-salvar-tudo:active { transform: scale(0.98); }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn-voltar" onclick="window.location.href='/'"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+        
+        <h1>Avaliação Estética Corporal</h1>
+
+        <!-- SEÇÃO 1: IDENTIFICAÇÃO -->
+        <div class="secao">
+            <h2>1. Identificação do Paciente</h2>
+            <div class="grid-2">
+                <div class="grupo-input">
+                    <label>Nome Completo:</label>
+                    <input type="text" id="nomePaciente" list="listaClientes" placeholder="Busque ou digite o nome...">
+                    <datalist id="listaClientes">
+                        {% for cliente in clientes %}<option value="{{ cliente.nome }}"></option>{% endfor %}
+                    </datalist>
+                </div>
+                <div class="grupo-input">
+                    <label>Contato / WhatsApp:</label>
+                    <input type="text" placeholder="(  ) _____-____">
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="grupo-input"><label>RG:</label><input type="text"></div>
+                <div class="grupo-input"><label>CPF:</label><input type="text"></div>
+                <div class="grupo-input"><label>Idade:</label><input type="number"></div>
+            </div>
+            <div class="grid-2">
+                <div class="grupo-input"><label>Endereço:</label><input type="text"></div>
+                <div class="grupo-input"><label>Bairro / Cidade / CEP:</label><input type="text"></div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 2: DADOS CLÍNICOS -->
+        <div class="secao">
+            <h2>2. Dados Clínicos e Hábitos</h2>
+            
+            <div class="grupo-input">
+                <label>Qual sua queixa atual?</label>
+                <textarea placeholder="Descreva a queixa principal..."></textarea>
+            </div>
+
+            <div class="grid-2">
+                <div class="grupo-input">
+                    <label>Já fez tratamento estético?</label>
+                    <div class="linha-opcoes"><label><input type="radio" name="trat_est"> Sim</label><label><input type="radio" name="trat_est"> Não</label></div>
+                </div>
+                <div class="grupo-input">
+                    <label>Como foi sua experiência?</label>
+                    <div class="linha-opcoes"><label><input type="radio" name="exp"> Boa</label><label><input type="radio" name="exp"> Ruim</label></div>
+                </div>
+                <div class="grupo-input">
+                    <label>Costume de exposição solar?</label>
+                    <div class="linha-opcoes"><label><input type="radio" name="sol"> Sim</label><label><input type="radio" name="sol"> Não</label></div>
+                </div>
+                <div class="grupo-input">
+                    <label>Histórico de câncer na família?</label>
+                    <div class="linha-opcoes"><label><input type="radio" name="cancer"> Sim</label><label><input type="radio" name="cancer"> Não</label></div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="grupo-input"><label>Antecedente Alérgico? Qual?</label><input type="text" placeholder="Ex: Sim, iodo..."></div>
+                <div class="grupo-input"><label>Intolerâncias?</label><input type="text"></div>
+                <div class="grupo-input"><label>Está em tratamento médico? Qual?</label><input type="text"></div>
+                <div class="grupo-input"><label>Faz uso de algum medicamento?</label><input type="text"></div>
+            </div>
+
+            <div class="grupo-input">
+                <label>Patologias (Selecione as existentes):</label>
+                <div class="linha-opcoes">
+                    <label><input type="checkbox"> Cardíaca</label> <label><input type="checkbox"> Diabetes</label> 
+                    <label><input type="checkbox"> Vasculares</label> <label><input type="checkbox"> Reumáticas</label>
+                    <label><input type="checkbox"> Renal</label> <label><input type="checkbox"> Osteoporose</label>
+                    <label><input type="checkbox"> Hipertensão</label> <label><input type="checkbox"> Epilepsia</label>
+                    <label><input type="checkbox"> Desequilíbrio Hormonal</label>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="grupo-input"><label>Portador de Marcapasso?</label><div class="linha-opcoes"><label><input type="radio" name="marca"> Sim</label><label><input type="radio" name="marca"> Não</label></div></div>
+                <div class="grupo-input"><label>Presença de Metal?</label><div class="linha-opcoes"><label><input type="radio" name="metal"> Sim</label><label><input type="radio" name="metal"> Não</label></div></div>
+                <div class="grupo-input"><label>Uso de Antibióticos?</label><div class="linha-opcoes"><label><input type="radio" name="anti"> Sim</label><label><input type="radio" name="anti"> Não</label></div></div>
+                <div class="grupo-input"><label>Uso de Anticoagulantes?</label><div class="linha-opcoes"><label><input type="radio" name="coag"> Sim</label><label><input type="radio" name="coag"> Não</label></div></div>
+                <div class="grupo-input"><label>Varizes / Microvasos?</label><div class="linha-opcoes"><label><input type="radio" name="varizes"> Sim</label><label><input type="radio" name="varizes"> Não</label></div></div>
+                <div class="grupo-input"><label>Retém Líquido?</label><div class="linha-opcoes"><label><input type="radio" name="liq"> Sim</label><label><input type="radio" name="liq"> Não</label></div></div>
+            </div>
+
+            <div class="grid-2">
+                <div class="grupo-input"><label>Hábitos:</label><div class="linha-opcoes"><label><input type="checkbox"> Esportes</label><label><input type="checkbox"> Fuma</label><label><input type="checkbox"> Álcool</label></div></div>
+                <div class="grupo-input"><label>Alimentação predominante:</label><div class="linha-opcoes"><label><input type="checkbox"> Gordura</label><label><input type="checkbox"> Doce</label><label><input type="checkbox"> Fibras/Verduras</label></div></div>
+            </div>
+            
+            <div class="grid-3">
+                <div class="grupo-input"><label>Qualidade do Sono (Hrs):</label><input type="text" placeholder="Ex: Bom, 7 hrs"></div>
+                <div class="grupo-input"><label>Consumo de Água (Litros):</label><input type="text" placeholder="Ex: Muito, 3L"></div>
+                <div class="grupo-input"><label>Funcionamento Intestinal:</label><select><option>Diário</option><option>3-4x Semana</option><option>1-2x Semana</option></select></div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 3: TERMO DE RESPONSABILIDADE -->
+        <div class="secao">
+            <h2>3. Termo de Responsabilidade (Informações Clínicas)</h2>
+            <div class="texto-termo">Estou ciente e de acordo com todas as informações acima relacionadas e declaro não ter omitido nenhuma informação de saúde que possa prejudicar a avaliação do profissional.</div>
+            <div class="area-assinatura">
+                <label class="titulo-luxo">Assinatura do Paciente</label>
+                <canvas id="sigResp" width="600" height="120"></canvas>
+                <div class="botoes-canvas"><button class="btn-limpar" onclick="limparCanvas('sigResp')"><i class="fa-solid fa-eraser"></i> Limpar</button></div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 4: AVALIAÇÃO FÍSICA E MEDIDAS -->
+        <div class="secao">
+            <h2>4. Avaliação Física e Medidas Corporais</h2>
+            <div class="grid-2">
+                <div class="grupo-input">
+                    <label>Biotipo Corporal:</label>
+                    <select><option>Ectomorfo</option><option>Mesomorfo</option><option>Endomorfo</option></select>
+                </div>
+                <div class="grupo-input">
+                    <label>Acúmulo de Gordura / Formato:</label>
+                    <select><option>Andróide (Maçã)</option><option>Ginóide (Pêra)</option><option>Ampulheta</option><option>Retângulo</option><option>Triângulo</option><option>Triângulo Invertido</option></select>
+                </div>
+            </div>
+            
+            <label style="margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 5px;">Medidas Corporais Iniciais (cm)</label>
+            <div class="grid-4" style="margin-top: 15px;">
+                <div class="grupo-input"><label>Busto:</label><input type="number"></div>
+                <div class="grupo-input"><label>Axilar:</label><input type="number"></div>
+                <div class="grupo-input"><label>Braço D:</label><input type="number"></div>
+                <div class="grupo-input"><label>Braço E:</label><input type="number"></div>
+                <div class="grupo-input"><label>Ab. Superior:</label><input type="number"></div>
+                <div class="grupo-input"><label>Cintura:</label><input type="number"></div>
+                <div class="grupo-input"><label>Ab. Inferior:</label><input type="number"></div>
+                <div class="grupo-input"><label>Culote:</label><input type="number"></div>
+                <div class="grupo-input"><label>Quadril:</label><input type="number"></div>
+                <div class="grupo-input"><label>Coxa D:</label><input type="number"></div>
+                <div class="grupo-input"><label>Interno Coxa D:</label><input type="number"></div>
+                <div class="grupo-input"><label>Interno Coxa E:</label><input type="number"></div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 15px;">
+                <div class="grupo-input"><label>Composição: Massa Corporal</label><input type="text"></div>
+                <div class="grupo-input"><label>% Gordura:</label><input type="text"></div>
+                <div class="grupo-input"><label>Massa Magra:</label><input type="text"></div>
+            </div>
+
+            <div class="grid-3">
+                <div class="grupo-input"><label>Diástase?</label><select><option>Normal</option><option>Com Diástase</option></select></div>
+                <div class="grupo-input"><label>Grau Estrias (0 a 4):</label><input type="text" placeholder="Ex: 2 - Eritema Intenso"></div>
+                <div class="grupo-input"><label>Grau Celulite (I a IV):</label><select><option>Grau I</option><option>Grau II</option><option>Grau III</option><option>Grau IV</option></select></div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 5: PLANO DE TRATAMENTO -->
+        <div class="secao">
+            <h2>5. Prontuário e Plano de Tratamento</h2>
+            <div class="grupo-input"><label>Áreas de Tratamento:</label><input type="text"></div>
+            <div class="grupo-input"><label>Protocolo e Procedimentos:</label><textarea></textarea></div>
+            <div class="grupo-input"><label>Orçamento Base:</label><input type="text" placeholder="R$ 0,00"></div>
+        </div>
+
+        <!-- SEÇÃO 6: TERMO DE CONSENTIMENTO ESTÉTICO -->
+        <div class="secao">
+            <h2>6. Termo de Consentimento Estético</h2>
+            <div class="texto-termo">
+                Eu, declaro ter sido informado(a) claramente e ciente sobre todos os benefícios, os riscos, as indicações, contraindicações, principais efeitos colaterais e advertências gerais relacionados ao tratamento. Os termos técnicos foram explicados e todas as minhas dúvidas foram esclarecidas pelo profissional que conduzirá o processo.<br><br>
+                Comprometo-me a seguir todas as orientações e a fazer uso de todos os produtos contidos em minha prescrição domiciliar, respeitando os horários indicados, isentando neste ato os profissionais nas hipóteses de minha culpa exclusiva.<br><br>
+                Expresso também minha concordância e espontânea vontade em submeter-me ao referido tratamento, assumindo a responsabilidade e os riscos pelos eventuais efeitos indesejáveis decorrentes. Estou ciente que posso suspender este tratamento a qualquer momento.
+            </div>
+            
+            <div class="grid-2">
+                <div class="area-assinatura">
+                    <label class="titulo-luxo">Assinatura do Paciente</label>
+                    <canvas id="sigConsent" width="400" height="120"></canvas>
+                    <div class="botoes-canvas"><button class="btn-limpar" onclick="limparCanvas('sigConsent')"><i class="fa-solid fa-eraser"></i> Limpar</button></div>
+                </div>
+                <div class="area-assinatura">
+                    <label class="titulo-luxo">Assinatura do Profissional</label>
+                    <canvas id="sigProf" width="400" height="120"></canvas>
+                    <div class="botoes-canvas"><button class="btn-limpar" onclick="limparCanvas('sigProf')"><i class="fa-solid fa-eraser"></i> Limpar</button></div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-salvar-tudo" onclick="salvarTudo()"><i class="fa-solid fa-check-double"></i> Finalizar e Salvar Anamnese</button>
+
+    </div>
+
+    <script>
+        // Lógica das 3 Assinaturas
+        function initCanvas(id) {
+            const canvas = document.getElementById(id);
+            const ctx = canvas.getContext('2d');
+            let desenhando = false;
+            ctx.strokeStyle = "#000000"; ctx.lineWidth = 2; ctx.lineCap = "round";
+
+            const pegarPos = (e) => {
+                const r = canvas.getBoundingClientRect();
+                const x = e.touches ? e.touches[0].clientX : e.clientX;
+                const y = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: x - r.left, y: y - r.top };
+            }
+            
+            const start = (e) => { e.preventDefault(); desenhando = true; const p = pegarPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
+            const move = (e) => { e.preventDefault(); if(!desenhando) return; const p = pegarPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+            const stop = () => { desenhando = false; }
+
+            canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', move); window.addEventListener('mouseup', stop);
+            canvas.addEventListener('touchstart', start, {passive: false}); canvas.addEventListener('touchmove', move, {passive: false}); canvas.addEventListener('touchend', stop);
+        }
+
+        function limparCanvas(id) {
+            const c = document.getElementById(id);
+            c.getContext('2d').clearRect(0, 0, c.width, c.height);
+        }
+
+        initCanvas('sigResp');
+        initCanvas('sigConsent');
+        initCanvas('sigProf');
+
+        function salvarTudo() {
+            alert("Ficha de Anamnese Corporal salva com sucesso no sistema!");
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
