@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Suzane Figueiredo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0a0a0a; color: #D4B06A; font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: #0f0f0f; border: 1px solid #8c6b3e; padding: 30px; border-radius: 12px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; background: #1a1a1a; border: 1px solid #444; color: white; border-radius: 6px; box-sizing: border-box; }
+        button { background: linear-gradient(135deg, #e3c48e 0%, #c4995a 100%); padding: 15px; width: 100%; font-size: 18px; border: none; font-weight: bold; cursor: pointer; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <button onclick="window.location.href='/'" style="width:auto; margin-bottom: 20px; background: transparent; color: #D4B06A; border: 1px solid #D4B06A;">VOLTAR</button>
+    <div class="container">
+        <h2 style="font-family:'Playfair Display'; text-align:center;">Dados Cadastrais</h2>
+        <input type="text" id="nome" placeholder="Nome Completo">
+        <input type="email" id="email" placeholder="E-mail">
+        <input type="text" id="telefone" placeholder="Telefone / WhatsApp">
+        <button onclick="salvarDados()">CADASTRAR CLIENTE</button>
+    </div>
+    <script>
+        async function salvarDados() {
+            const dados = { nome: document.getElementById('nome').value, email: document.getElementById('email').value, telefone: document.getElementById('telefone').value };
+            await fetch('/dados', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(dados) });
+            alert('Cliente cadastrado com sucesso!'); window.location.href = '/';
+        }
+    </script>
+</body>
+</html>

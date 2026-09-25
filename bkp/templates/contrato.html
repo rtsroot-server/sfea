@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Contratos - Suzane Figueiredo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 20px; min-height: 100vh;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            font-family: 'Playfair Display', serif; color: #D4B06A;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .btn-voltar {
+            align-self: flex-start;
+            background: none; border: 1px solid #D4B06A; color: #D4B06A;
+            padding: 10px 20px; font-size: 18px; border-radius: 8px; cursor: pointer;
+            text-transform: uppercase; margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        .btn-voltar:active { background: #D4B06A; color: #000; }
+
+        .container-principal {
+            width: 100%; max-width: 900px;
+            background: #0f0f0f; 
+            border: 1px solid #8c6b3e;
+            border-radius: 12px; 
+            padding: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9), inset 0 2px 10px rgba(212, 176, 106, 0.1);
+        }
+
+        .cabecalho-identificacao {
+            display: flex; flex-direction: column; gap: 10px;
+            border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 20px;
+        }
+        
+        .cabecalho-identificacao label { font-size: 18px; color: #D4B06A; text-transform: uppercase; letter-spacing: 2px;}
+        
+        .cabecalho-identificacao input {
+            padding: 15px; font-size: 18px; border-radius: 8px;
+            border: 1px solid #444; background: #1a1a1a; color: white; outline: none;
+            width: 100%; font-family: Arial, sans-serif;
+        }
+        .cabecalho-identificacao input:focus { border-color: #D4B06A; }
+
+        h2 { text-align: center; text-transform: uppercase; letter-spacing: 2px; font-size: 22px; margin-top: 0;}
+
+        .texto-contrato {
+            width: 100%; height: 280px; overflow-y: auto;
+            background: #141414; padding: 25px; border-radius: 8px;
+            color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px;
+            line-height: 1.6; border: 1px solid #333; margin-bottom: 20px; text-align: justify;
+        }
+
+        .texto-contrato::-webkit-scrollbar { width: 8px; }
+        .texto-contrato::-webkit-scrollbar-thumb { background: #c4995a; border-radius: 8px; }
+
+        .area-assinatura { display: flex; flex-direction: column; align-items: center; }
+        
+        canvas {
+            background: #ffffff; border-radius: 8px; cursor: crosshair;
+            border: 2px solid #c4995a; touch-action: none;
+        }
+        
+        .botoes-acao { display: flex; gap: 20px; margin-top: 20px; width: 100%; }
+        
+        .btn-limpar, .btn-proximo {
+            flex: 1; padding: 18px; font-size: 18px; border-radius: 8px; cursor: pointer;
+            font-family: 'Playfair Display', serif; font-weight: bold; text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        
+        .btn-limpar { background: transparent; border: 1px solid #888; color: #aaa; }
+        .btn-limpar:active { background: #333; }
+        
+        .btn-proximo {
+            background: linear-gradient(135deg, #e3c48e 0%, #c4995a 40%, #9e7135 100%);
+            border: none; color: #1a1a1a; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .btn-proximo:active { transform: scale(0.98); }
+
+        #passo2 { display: none; }
+        
+        .progresso { text-align: center; font-size: 14px; color: #888; letter-spacing: 2px; margin-bottom: 10px; }
+        
+        /* Destaque para o nome preenchido magicamente */
+        .nome-preenchido { color: #fff; text-decoration: underline; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <button class="btn-voltar" onclick="window.location.href='/'"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+
+    <div class="container-principal">
+        
+        <!-- Área de identificação fixada no topo -->
+        <div class="cabecalho-identificacao">
+            <label>1. Identificação do Cliente</label>
+            <input type="text" id="nomeContrato" list="listaClientes" placeholder="Comece a digitar seu nome para buscar o cadastro..." oninput="buscarEmailAutomatizado()">
+            <datalist id="listaClientes">
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.nome }}"></option>
+                {% endfor %}
+            </datalist>
+            <input type="hidden" id="emailContrato">
+        </div>
+
+        <!-- PASSO 1: CONTRATO DE SERVIÇOS -->
+        <div id="passo1">
+            <div class="progresso">DOCUMENTO 1 DE 2</div>
+            <h2>Contrato de Prestação de Serviços Estéticos</h2>
+            
+            <div class="texto-contrato">
+                <p><strong>CONTRATADA:</strong> Suzane Figueiredo Estética e Avançada, inscrito no CNPJ sob o nº 31.43.198/0001-07, com sede na Estrada Coronel Pedro Correa 740 loja 116, Barra Olímpica - Rio de Janeiro/RJ - Cep.: 22.775-090, doravante denominada CONTRATADA.</p>
+                
+                <!-- AQUI ESTÁ A MÁGICA: O campo começa vazio e é preenchido pelo JavaScript -->
+                <p><strong>CONTRATANTE:</strong> <span id="nomeClienteContratoServico" class="nome-preenchido">________________________________________</span>, com dados complementares já devidamente registrados no sistema de Dados Cadastrais, doravante denominado(a) CONTRATANTE.</p>
+                
+                <p>As partes resolvem celebrar o presente contrato de prestação de serviços estéticos, regido pelo Código Civil (Lei 10.406/2002) e pelo Código de Defesa do Consumidor (Lei 8.078/1990), mediante as cláusulas a seguir:</p>
+                
+                <p><strong>CLÁUSULA 1 – DO OBJETO (CDC, art. 30 e 31)</strong><br>
+                O presente contrato tem por objeto a prestação de serviços estéticos adquiridas de forma pré-paga pelo(a) CONTRATANTE.<br>
+                § 1º - A CONTRATANTE adquire o número de sessões e o(s) tratamento(s) indicado(s) previamente no sistema.<br>
+                § 2º - O preço livremente ajustado para a realização dos procedimentos será devidamente convencionado entre as partes.<br>
+                § 3º - A CONTRATADA obriga-se a prestar serviços de estética à CONTRATANTE, com aplicação de métodos e equipamentos próprios, objetivando o tratamento corporal/facial da CONTRATANTE, nos termos das condições gerais contidas nesse instrumento.<br>
+                § 4º - Os serviços estéticos contratados compreendem na realização do número de sessões contratadas nas datas e horários de acordo com agendamento prévio.<br>
+                § 5º - Caso haja necessidade de alteração nos horários e datas em anexo, decorrentes de algum imprevisto que impossibilite a CONTRATANTE de comparecer no horário pré-estabelecido, a mesma deverá avisar a CONTRATADA com no mínimo 12 horas de antecedência, assim será reagendada.<br>
+                § 6º - Em caso da desmarcação de sessão com menos de 12 horas de antecedência ou não comparecimento, acarretará na perda da sessão.<br>
+                § 7º - Ocorrendo a hipótese do § 5º acima, o reagendamento dependerá da disponibilidade da CONTRATADA.<br>
+                § 8º - Caso a CONTRATANTE não compareça nas datas e horários pré-definidos a CONTRATADA exime-se de qualquer responsabilidade no que diz respeito a resultados esperados dos procedimentos, restando rescindido o presente contrato de pleno direito, sem necessidade de qualquer outra formalidade, sendo devido pagamento os valores contratados a CONTRATADA em sua integralidade como forma de compensação por perdas e danos.</p>
+
+                <p><strong>CLÁUSULA 2 – DO PRAZO DE UTILIZAÇÃO (CDC, art. 6º, III e art. 51, IV)</strong><br>
+                2.1. O pacote de sessões deverá ser utilizado no prazo máximo de 3 meses a contar da assinatura deste contrato.<br>
+                2.2. Após esse prazo, as sessões não realizadas serão consideradas expiradas, sem direito a restituição de valores, ressalvados os casos de força maior devidamente comprovados pelo(a) CONTRATANTE e aceitos pela CONTRATADA.</p>
+
+                <p><strong>CLÁUSULA 3 – DO ABANDONO DE TRATAMENTO (CC, art. 421 e 422 – função social e boa-fé)</strong><br>
+                3.1. O não comparecimento do(a) CONTRATANTE por período superior a 45 (quarenta e cinco) dias consecutivos, sem comunicação prévia e formal à CONTRATADA, caracterizará abandono voluntário do tratamento.<br>
+                3.2. Nessa hipótese, não haverá suspensão ou prorrogação do prazo de validade do pacote, que continuará a correr normalmente.<br>
+                3.3. Excepcionalmente, mediante justificativa documentada (ex.: atestado médico, viagem prolongada), a CONTRATADA poderá conceder prorrogação do prazo.</p>
+
+                <p><strong>CLÁUSULA 4 – DA RESPONSABILIDADE PELO RESULTADO (CDC, art. 6º, III e CC, art. 422)</strong><br>
+                4.1. A CONTRATADA compromete-se a executar os serviços contratados com técnicas adequadas, utilizando equipamentos em conformidade com normas de segurança e higiene.<br>
+                4.2. O(a) CONTRATANTE declara estar ciente de que os resultados podem variar conforme o perfil individual, não havendo garantia absoluta de resultado específico, nos termos do CDC.<br>
+                4.3. O(a) CONTRATANTE compromete-se a seguir integralmente os protocolos indicados pela CONTRATADA (tais como frequência correta das sessões, intervalos entre aplicações, cuidados pós-tratamento, uso de cremes/protetores e demais orientações).<br>
+                4.4. Caso o(a) CONTRATANTE não siga os protocolos de forma adequada, eventual insucesso no resultado não poderá ser imputado à CONTRATADA, ficando a responsabilidade integral a cargo do(a) CONTRATANTE. Base legal: princípio da boa-fé objetiva e dever de cooperação (art. 421 e 422 do CC), bem como a vedação ao abuso de direito (art. 187 do CC).</p>
+
+                <p><strong>CLÁUSULA 5 – DO CANCELAMENTO (CDC, art. 51 e 53)</strong><br>
+                5.1. Em caso de desistência pelo(a) CONTRATANTE, este terá direito à devolução proporcional dos valores pagos, descontados: a) as sessões já realizadas; b) custos administrativos até o limite de 10% do valor do contrato.<br>
+                5.2. Em caso de rescisão por culpa exclusiva da CONTRATADA, será devida a restituição integral do valor pago, atualizado monetariamente.</p>
+
+                <p><strong>CLÁUSULA 6 – DAS RESPONSABILIDADES GERAIS (CDC, art. 6º e CC, art. 421)</strong><br>
+                6.1. A CONTRATADA deverá realizar os serviços dentro dos padrões técnicos adequados.<br>
+                6.2. O(a) CONTRATANTE reconhece que não existem resultados garantidos, mas apenas expectativas de melhora, sujeitas a fatores individuais.</p>
+
+                <p><strong>CLÁUSULA 7 – DAS DISPOSIÇÕES FINAIS (CDC, art. 51, §1º)</strong><br>
+                7.1. O presente contrato é regido pela legislação brasileira, em especial pelo Código de Defesa do Consumidor e pelo Código Civil.<br>
+                7.2. O foro eleito para dirimir controvérsias será o da comarca de Rio de Janeiro, com renúncia de qualquer outro, ainda que privilegiado.<br>
+                7.3. A CONTRATANTE declara ter sido previamente informada sobre todos os benefícios, risco, indicações, contraindicações, principais efeitos colaterais, princípios ativosCom certeza! É muito melhor ter o código fresquinho aqui na mão do que ficar rolando a tela para procurar.
+
+Aqui está o código completo e atualizado do nosso **`contrato.html`** (com aquela função mágica que preenche a linha com o nome do cliente automaticamente). 
+
+Basta criar (ou abrir) o arquivo **`contrato.html`** dentro da sua pasta **`templates`**, colar este código inteiro e salvar:
+
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Contratos - Suzane Figueiredo</title>
+    <link href="[https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap](https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap)" rel="stylesheet">
+    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    <style>
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 20px; min-height: 100vh;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            font-family: 'Playfair Display', serif; color: #D4B06A;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .btn-voltar {
+            align-self: flex-start;
+            background: none; border: 1px solid #D4B06A; color: #D4B06A;
+            padding: 10px 20px; font-size: 18px; border-radius: 8px; cursor: pointer;
+            text-transform: uppercase; margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+        .btn-voltar:active { background: #D4B06A; color: #000; }
+
+        .container-principal {
+            width: 100%; max-width: 900px;
+            background: #0f0f0f; 
+            border: 1px solid #8c6b3e;
+            border-radius: 12px; 
+            padding: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9), inset 0 2px 10px rgba(212, 176, 106, 0.1);
+        }
+
+        .cabecalho-identificacao {
+            display: flex; flex-direction: column; gap: 10px;
+            border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 20px;
+        }
+        
+        .cabecalho-identificacao label { font-size: 18px; color: #D4B06A; text-transform: uppercase; letter-spacing: 2px;}
+        
+        .cabecalho-identificacao input {
+            padding: 15px; font-size: 18px; border-radius: 8px;
+            border: 1px solid #444; background: #1a1a1a; color: white; outline: none;
+            width: 100%; font-family: Arial, sans-serif;
+        }
+        .cabecalho-identificacao input:focus { border-color: #D4B06A; }
+
+        h2 { text-align: center; text-transform: uppercase; letter-spacing: 2px; font-size: 22px; margin-top: 0;}
+
+        .texto-contrato {
+            width: 100%; height: 280px; overflow-y: auto;
+            background: #141414; padding: 25px; border-radius: 8px;
+            color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px;
+            line-height: 1.6; border: 1px solid #333; margin-bottom: 20px; text-align: justify;
+        }
+
+        .texto-contrato::-webkit-scrollbar { width: 8px; }
+        .texto-contrato::-webkit-scrollbar-thumb { background: #c4995a; border-radius: 8px; }
+
+        .area-assinatura { display: flex; flex-direction: column; align-items: center; }
+        
+        canvas {
+            background: #ffffff; border-radius: 8px; cursor: crosshair;
+            border: 2px solid #c4995a; touch-action: none;
+        }
+        
+        .botoes-acao { display: flex; gap: 20px; margin-top: 20px; width: 100%; }
+        
+        .btn-limpar, .btn-proximo {
+            flex: 1; padding: 18px; font-size: 18px; border-radius: 8px; cursor: pointer;
+            font-family: 'Playfair Display', serif; font-weight: bold; text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        
+        .btn-limpar { background: transparent; border: 1px solid #888; color: #aaa; }
+        .btn-limpar:active { background: #333; }
+        
+        .btn-proximo {
+            background: linear-gradient(135deg, #e3c48e 0%, #c4995a 40%, #9e7135 100%);
+            border: none; color: #1a1a1a; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .btn-proximo:active { transform: scale(0.98); }
+
+        #passo2 { display: none; }
+        
+        .progresso { text-align: center; font-size: 14px; color: #888; letter-spacing: 2px; margin-bottom: 10px; }
+        
+        .nome-preenchido { color: #fff; text-decoration: underline; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <button class="btn-voltar" onclick="window.location.href='/'"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+
+    <div class="container-principal">
+        
+        <!-- Área de identificação -->
+        <div class="cabecalho-identificacao">
+            <label>1. Identificação do Cliente</label>
+            <input type="text" id="nomeContrato" list="listaClientes" placeholder="Comece a digitar seu nome para buscar o cadastro..." oninput="buscarEmailAutomatizado()">
+            <datalist id="listaClientes">
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.nome }}"></option>
+                {% endfor %}
+            </datalist>
+            <input type="hidden" id="emailContrato">
+        </div>
+
+        <!-- PASSO 1: CONTRATO DE SERVIÇOS -->
+        <div id="passo1">
+            <div class="progresso">DOCUMENTO 1 DE 2</div>
+            <h2>Contrato de Prestação de Serviços Estéticos</h2>
+            
+            <div class="texto-contrato">
+                <p><strong>CONTRATADA:</strong> Suzane Figueiredo Estética e Avançada, inscrita no CNPJ sob o nº 31.43.198/0001-07, com sede na Estrada Coronel Pedro Correa 740 loja 116, Barra Olímpica - Rio de Janeiro/RJ, doravante denominada CONTRATADA.</p>
+                
+                <p><strong>CONTRATANTE:</strong> <span id="nomeClienteContratoServico" class="nome-preenchido">________________________________________</span>, com dados complementares já devidamente registrados no sistema de Dados Cadastrais, doravante denominado(a) CONTRATANTE.</p>
+                
+                <p>As partes resolvem celebrar o presente contrato de prestação de serviços estéticos, regido pelo Código Civil e pelo Código de Defesa do Consumidor, mediante as seguintes cláusulas gerais:</p>
+                
+                <p>A CONTRATANTE adquire o número de sessões e os tratamentos indicados previamente. Os serviços estéticos contratados compreendem a realização de sessões nas datas e horários agendados.</p>
+                <p>O pacote de sessões deverá ser utilizado no prazo máximo de 3 meses. Caso haja necessidade de alteração, a CONTRATANTE deverá avisar com no mínimo 12 horas de antecedência. O não comparecimento acarretará a perda da sessão.</p>
+                <p>A CONTRATADA compromete-se a executar os serviços com técnicas adequadas. A CONTRATANTE declara estar ciente de que os resultados podem variar e compromete-se a seguir integralmente os protocolos indicados.</p>
+            </div>
+
+            <div class="area-assinatura">
+                <label style="margin-bottom: 10px; font-size: 16px;">2. Assine o Contrato de Serviços abaixo:</label>
+                <canvas id="assinaturaServicos" width="700" height="150"></canvas>
+                
+                <div class="botoes-acao">
+                    <button class="btn-limpar" onclick="limparCanvas('assinaturaServicos')"><i class="fa-solid fa-eraser"></i> Limpar Assinatura</button>
+                    <button class="btn-proximo" onclick="irParaPasso2()">Ir para Termo de Imagem <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSO 2: TERMO DE IMAGEM -->
+        <div id="passo2">
+            <div class="progresso">DOCUMENTO 2 DE 2</div>
+            <h2>Autorização do Uso de Imagem</h2>
+            
+            <div class="texto-contrato">
+                <p>Neste ato, eu, <strong id="nomeClienteTermo" class="nome-preenchido">________________________________________</strong>, AUTORIZO o uso de minha imagem para ser utilizada em qualquer material de Comunicação da Clinica Suzane Figueiredo Estética.</p>
+                <p>O material poderá ser divulgado pela empresa em qualquer dos seus meios, incluindo as redes sociais, em qualquer tempo, sem nenhum tipo de ônus para a empresa, já que a presente autorização é concedida a título de gratuidade.</p>
+                <p>Por esta ser a expressão da minha vontade, declaro que autorizo o uso acima descrito, e assino a presente autorização eletronicamente.</p>
+            </div>
+
+            <div class="area-assinatura">
+                <label style="margin-bottom: 10px; font-size: 16px;">3. Assine a Autorização de Imagem abaixo:</label>
+                <canvas id="assinaturaImagem" width="700" height="150"></canvas>
+                
+                <div class="botoes-acao">
+                    <button class="btn-limpar" onclick="limparCanvas('assinaturaImagem')"><i class="fa-solid fa-eraser"></i> Limpar Assinatura</button>
+                    <button class="btn-proximo" onclick="finalizarTudo()"><i class="fa-solid fa-check"></i> Finalizar e Enviar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const bancoClientesLocais = [{% for cliente in clientes %}{ nome: "{{ cliente.nome }}", email: "{{ cliente.email }}" },{% endfor %}];
+        
+        let assinouContratoServico = false;
+        let assinouTermoImagem = false;
+
+        function buscarEmailAutomatizado() {
+            const nome = document.getElementById('nomeContrato').value;
+            const achado = bancoClientesLocais.find(c => c.nome === nome);
+            
+            if (achado) {
+                document.getElementById('emailContrato').value = achado.email;
+                document.getElementById('nomeClienteContratoServico').innerText = achado.nome;
+                document.getElementById('nomeClienteTermo').innerText = achado.nome;
+            } else {
+                document.getElementById('emailContrato').value = "";
+                document.getElementById('nomeClienteContratoServico').innerText = "________________________________________";
+                document.getElementById('nomeClienteTermo').innerText = "________________________________________";
+            }
+        }
+
+        function irParaPasso2() {
+            const nomeInput = document.getElementById('nomeContrato').value;
+            if (!nomeInput || nomeInput.trim() === "") { 
+                alert("Por favor, digite ou busque seu Nome Completo na etapa 1 antes de avançar."); 
+                document.getElementById('nomeContrato').focus();
+                return; 
+            }
+            
+            document.getElementById('passo1').style.display = 'none';
+            document.getElementById('passo2').style.display = 'block';
+        }
+
+        async function finalizarTudo() {
+            if (!assinouContratoServico) {
+                alert("Atenção: Você esqueceu de assinar o Contrato de Serviços (Passo 1).");
+                document.getElementById('passo2').style.display = 'none';
+                document.getElementById('passo1').style.display = 'block';
+                return;
+            }
+            
+            if (!assinouTermoImagem) {
+                alert("Atenção: Por favor, assine a Autorização de Imagem antes de finalizar.");
+                return;
+            }
+
+            const nomeInput = document.getElementById('nomeContrato').value;
+            const emailInput = document.getElementById('emailContrato').value;
+            const imgServicos = document.getElementById('assinaturaServicos').toDataURL('image/png');
+            const imgImagem = document.getElementById('assinaturaImagem').toDataURL('image/png');
+
+            const resposta = await fetch('/salvar_contrato', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nome: nomeInput,
+                    email: emailInput,
+                    assinatura_servico: imgServicos,
+                    assinatura_imagem: imgImagem
+                })
+            });
+
+            const resultado = await resposta.json();
+
+            if (resultado.status === "sucesso") {
+                alert("Documentos assinados com sucesso!");
+                window.location.href = '/';
+            }
+        }
+
+        function configurarCanvas(id) {
+            const canvas = document.getElementById(id);
+            const ctx = canvas.getContext('2d');
+            let desenhando = false;
+            ctx.strokeStyle = "#000000"; ctx.lineWidth = 3; ctx.lineCap = "round";
+
+            const pegarPos = (e) => {
+                const r = canvas.getBoundingClientRect();
+                const x = e.touches ? e.touches[0].clientX : e.clientX;
+                const y = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: x - r.left, y: y - r.top };
+            }
+            
+            const start = (e) => { 
+                e.preventDefault(); 
+                desenhando = true; 
+                if (id === 'assinaturaServicos') assinouContratoServico = true;
+                if (id === 'assinaturaImagem') assinouTermoImagem = true;
+                const p = pegarPos(e); 
+                ctx.beginPath(); 
+                ctx.moveTo(p.x, p.y); 
+            }
+            
+            const move = (e) => { e.preventDefault(); if(!desenhando) return; const p = pegarPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+            const stop = () => { desenhando = false; }
+
+            canvas.addEventListener('mousedown', start); 
+            canvas.addEventListener('mousemove', move); 
+            window.addEventListener('mouseup', stop);
+            canvas.addEventListener('touchstart', start, {passive: false}); 
+            canvas.addEventListener('touchmove', move, {passive: false}); 
+            canvas.addEventListener('touchend', stop);
+        }
+
+        function limparCanvas(id) {
+            const c = document.getElementById(id);
+            c.getContext('2d').clearRect(0, 0, c.width, c.height);
+            if (id === 'assinaturaServicos') assinouContratoServico = false;
+            if (id === 'assinaturaImagem') assinouTermoImagem = false;
+        }
+
+        configurarCanvas('assinaturaServicos');
+        configurarCanvas('assinaturaImagem');
+    </script>
+</body>
+</html>

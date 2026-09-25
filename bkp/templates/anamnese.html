@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ficha de Anamnese - Suzane Figueiredo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 20px; min-height: 100vh;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            font-family: 'Playfair Display', serif; color: #D4B06A;
+        }
+        .btn-voltar {
+            background: none; border: 1px solid #D4B06A; color: #D4B06A;
+            padding: 10px 20px; font-size: 16px; border-radius: 8px; cursor: pointer;
+            text-transform: uppercase; margin-bottom: 20px;
+        }
+        .container-principal {
+            max-width: 900px; margin: 0 auto; background: #0f0f0f; 
+            border: 1px solid #8c6b3e; border-radius: 12px; padding: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+        }
+        h1 { text-align: center; text-transform: uppercase; letter-spacing: 2px; font-size: 24px; border-bottom: 1px solid #333; padding-bottom: 20px; }
+        h2 { font-size: 18px; color: #e3c48e; margin-top: 30px; border-bottom: 1px dashed #444; padding-bottom: 10px; }
+        
+        .grupo-input { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 16px; }
+        input[type="text"] {
+            width: 100%; padding: 12px; font-size: 16px; border-radius: 6px;
+            border: 1px solid #444; background: #1a1a1a; color: white; font-family: Arial, sans-serif;
+        }
+        .linha-opcoes { display: flex; flex-wrap: wrap; gap: 15px; font-family: Arial, sans-serif; color: #ddd; font-size: 15px; }
+        .linha-opcoes label { display: flex; align-items: center; gap: 5px; cursor: pointer; margin: 0; }
+        
+        .area-assinatura { display: flex; flex-direction: column; align-items: center; margin-top: 40px; }
+        canvas { background: #ffffff; border-radius: 8px; border: 2px solid #c4995a; cursor: crosshair; }
+        .botoes-acao { display: flex; gap: 15px; margin-top: 20px; width: 100%; justify-content: center;}
+        
+        .btn-salvar {
+            padding: 15px 30px; font-size: 18px; border-radius: 8px; cursor: pointer;
+            background: linear-gradient(135deg, #e3c48e 0%, #c4995a 40%, #9e7135 100%);
+            border: none; color: #1a1a1a; font-weight: bold; text-transform: uppercase;
+        }
+        .btn-limpar { padding: 15px 30px; font-size: 16px; background: transparent; border: 1px solid #888; color: #aaa; border-radius: 8px; cursor: pointer;}
+        
+        #identificacao-cliente { background: #141414; padding: 20px; border-radius: 8px; border: 1px solid #333; margin-bottom: 30px;}
+    </style>
+</head>
+<body>
+    <button class="btn-voltar" onclick="window.location.href='/'"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+
+    <div class="container-principal">
+        <h1>Ficha de Anamnese Corporal</h1>
+
+        <div id="identificacao-cliente">
+            <label style="color:#D4B06A; text-transform:uppercase;">1. Buscar Paciente</label>
+            <input type="text" id="nomePaciente" list="listaClientes" placeholder="Digite o nome do paciente..." oninput="carregarDados()">
+            <datalist id="listaClientes">
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.nome }}"></option>
+                {% endfor %}
+            </datalist>
+        </div>
+
+        <div id="formulario-anamnese">
+            <h2>Dados Clínicos Básicos</h2>
+            
+            <div class="grupo-input">
+                <label>Qual sua queixa atual?</label>
+                <input type="text" id="queixa" placeholder="Descreva o motivo principal da visita">
+            </div>
+
+            <div class="grupo-input">
+                <label>Já fez tratamento estético antes?</label>
+                <div class="linha-opcoes">
+                    <label><input type="radio" name="trat_anterior" value="sim"> Sim</label>
+                    <label><input type="radio" name="trat_anterior" value="nao"> Não</label>
+                </div>
+            </div>
+
+            <h2>Histórico de Saúde</h2>
+            
+            <div class="grupo-input">
+                <label>Patologias (Selecione as aplicáveis):</label>
+                <div class="linha-opcoes">
+                    <label><input type="checkbox" value="Cardíaca"> Cardíaca</label>
+                    <label><input type="checkbox" value="Diabetes"> Diabetes</label>
+                    <label><input type="checkbox" value="Hipertensão"> Hipertensão</label>
+                    <label><input type="checkbox" value="Vasculares"> Vasculares</label>
+                    <label><input type="checkbox" value="Desequilíbrio Hormonal"> Desequilíbrio Hormonal</label>
+                </div>
+            </div>
+
+            <div class="grupo-input">
+                <label>Possui antecedentes alérgicos?</label>
+                <input type="text" id="alergias" placeholder="Se sim, quais? Se não, deixe em branco.">
+            </div>
+            
+            <div class="grupo-input">
+                <label>Portador de marcapasso ou presença de metal?</label>
+                <div class="linha-opcoes">
+                    <label><input type="radio" name="metal" value="sim"> Sim</label>
+                    <label><input type="radio" name="metal" value="nao"> Não</label>
+                </div>
+            </div>
+
+            <h2>Hábitos e Rotina</h2>
+
+            <div class="grupo-input">
+                <label>Consumo de Água (Litros diários):</label>
+                <input type="text" id="agua" placeholder="Ex: 2 Litros">
+            </div>
+
+            <div class="grupo-input">
+                <label>Qualidade do Sono:</label>
+                <div class="linha-opcoes">
+                    <label><input type="radio" name="sono" value="bom"> Bom</label>
+                    <label><input type="radio" name="sono" value="normal"> Normal</label>
+                    <label><input type="radio" name="sono" value="ruim"> Ruim</label>
+                </div>
+            </div>
+
+            <div class="area-assinatura">
+                <p style="font-family: Arial, sans-serif; font-size: 14px; color: #aaa; text-align: justify; margin-bottom: 20px;">
+                    <strong>Termo de Responsabilidade:</strong> Estou ciente e de acordo com todas as informações acima relacionadas e declaro não ter omitido nenhuma informação de saúde que possa prejudicar a avaliação do profissional.
+                </p>
+                <label style="color:#D4B06A;">Assinatura do Paciente:</label>
+                <canvas id="assinaturaAnamnese" width="700" height="150"></canvas>
+                
+                <div class="botoes-acao">
+                    <button class="btn-limpar" onclick="limparCanvas()"><i class="fa-solid fa-eraser"></i> Limpar</button>
+                    <button class="btn-salvar" onclick="salvarAnamnese()"><i class="fa-solid fa-check"></i> Salvar Anamnese</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Configuração da assinatura digital
+        const canvas = document.getElementById('assinaturaAnamnese');
+        const ctx = canvas.getContext('2d');
+        let desenhando = false;
+        ctx.strokeStyle = "#000000"; ctx.lineWidth = 3; ctx.lineCap = "round";
+
+        const pegarPos = (e) => {
+            const r = canvas.getBoundingClientRect();
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            const y = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: x - r.left, y: y - r.top };
+        }
+        
+        const start = (e) => { e.preventDefault(); desenhando = true; const p = pegarPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
+        const move = (e) => { e.preventDefault(); if(!desenhando) return; const p = pegarPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+        const stop = () => { desenhando = false; }
+
+        canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', move); window.addEventListener('mouseup', stop);
+        canvas.addEventListener('touchstart', start, {passive: false}); canvas.addEventListener('touchmove', move, {passive: false}); canvas.addEventListener('touchend', stop);
+
+        function limparCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function salvarAnamnese() {
+            const nome = document.getElementById('nomePaciente').value;
+            if (!nome) { alert("Por favor, selecione ou digite o nome do paciente!"); return; }
+            alert("Ficha de Anamnese preenchida! Em breve conectaremos ao banco de dados e ao PDF.");
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Suzane Figueiredo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            min-height: 100vh; 
+            background-color: #0d0d0d;
+            background-image: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #050505 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-family: 'Playfair Display', serif; 
+            padding: 20px;
+        }
+        
+        .container { 
+            text-align: center; 
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .logo { 
+            max-width: 350px; /* Aumentei um pouco para dar o destaque da sua foto */
+            margin-bottom: 50px; 
+        }
+        
+        /* A Mágica da Grade 2x2 */
+        .menu-botoes { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        
+        /* O estilo exato do seu botão 3D Dourado */
+        .btn-menu { 
+            background: linear-gradient(180deg, #d3ab65 0%, #a87c3e 100%); 
+            border: 1px solid #f2daa6; /* Borda clarinha que dá o efeito 3D */
+            border-radius: 8px; 
+            padding: 30px 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6); 
+            transition: transform 0.2s, box-shadow 0.2s; 
+        }
+        
+        .btn-menu:active { 
+            transform: scale(0.97); 
+            box-shadow: 0 5px 10px rgba(0,0,0,0.6);
+        }
+        
+        .btn-menu i {
+            font-size: 32px;
+            color: #2b1d0f; /* Marrom bem escuro para contrastar */
+        }
+
+        .btn-menu span {
+            font-size: 18px;
+            font-family: 'Playfair Display', serif;
+            color: #2b1d0f;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Se abrir no celular, ele empilha um embaixo do outro */
+        @media (max-width: 600px) {
+            .menu-botoes { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo no topo -->
+        <img src="/static/logo.png" alt="Suzane Figueiredo Estética Avançada" class="logo">
+        
+        <div class="menu-botoes">
+            <!-- Botão 1 -->
+            <button class="btn-menu" onclick="window.location.href='/dados'">
+                <i class="fa-solid fa-user-pen"></i>
+                <span>Dados Cadastrais</span>
+            </button>
+            
+            <!-- Botão 2 -->
+            <button class="btn-menu" onclick="window.location.href='/contrato'">
+                <i class="fa-solid fa-file-signature"></i>
+                <span>Contrato de Serviços</span>
+            </button>
+            
+            <!-- Botão 3 (Vai para a mesma tela de contratos por enquanto, já que unimos os dois) -->
+            <button class="btn-menu" onclick="window.location.href='/contrato'">
+                <i class="fa-solid fa-camera"></i>
+                <span>Termo de Imagem</span>
+            </button>
+            
+            <!-- Botão 4 -->
+            <button class="btn-menu" onclick="window.location.href='/anamnese'">
+                <i class="fa-solid fa-notes-medical"></i>
+                <span>Ficha Anamnese</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
